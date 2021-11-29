@@ -1,0 +1,54 @@
+scalar Upload
+
+enum Categories{
+    TECH
+    CRYPTO
+    CS
+}
+
+type Author{
+  id: ID!
+  Name: String!
+  Description: String!
+}
+
+input NewAuthor{
+  Name: String!
+  Description: String!
+}
+
+type Post {
+  id: ID!
+  Title: String!
+  Author: Author!
+  Banner: String!
+  Date: String!
+  Markdown_text: String!
+  Category: [Categories]!
+  views: Int!
+  likes: Int!
+}
+
+type Query {
+  RecentPosts(page: Int!): [Post!]!
+  PickedPosts: [Post!]!
+  LovedPosts: [Post!]!
+  RecommendPosts: [Post!]!
+  Post(id: String!): Post!
+}
+
+input NewPost {
+  Title: String!
+  Banner: String!
+  Author: ID!
+  Date: String!
+  Markdown_File: String!
+  Category: [Categories]!
+}
+
+type Mutation {
+  createPost(input: NewPost!): Post!
+  editPost(id: ID!, input: NewPost!): String!
+  deletePost(id: ID!): String!
+  pickPost(id: ID!): String!
+}
